@@ -906,19 +906,28 @@ a.contact-item {
     left: -2px;
   }
 
-  /* Projects & payment cards: always visible on phone (IntersectionObserver can be unreliable on mobile) */
-  .projects-grid.animate-on-scroll,
-  .projects-grid .project-card,
+  /* Projects grid: single column that fits narrow screens (280px min can overflow on small phones) */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  /* Projects & payment cards: always visible on phone (force override scroll animation) */
+  #projects .projects-grid,
+  #projects .projects-grid.animate-on-scroll,
+  #projects .project-card,
   .payment-cards.animate-on-scroll,
   .payment-cards .payment-card {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
   }
 
   /* All scroll sections: ensure visible on mobile so nothing stays hidden */
   .animate-on-scroll {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
   }
 }
 
