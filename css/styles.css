@@ -921,3 +921,11 @@ a.contact-item {
     width: 100%;
   }
 }
+
+/* Force projects section visible everywhere (overrides any scroll/animation rules) */
+#projects .projects-grid,
+#projects .projects-grid .project-card {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
