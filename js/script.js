@@ -1,27 +1,38 @@
 (function () {
   'use strict';
 
-  // Year in footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+  function init() {
+    // Year in footer
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Scroll-triggered animations
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -80px 0px',
-    threshold: 0.1
-  };
+    // Hero: reveal immediately so it's never stuck invisible
+    var heroContent = document.querySelector('.hero .animate-on-scroll');
+    if (heroContent) heroContent.classList.add('visible');
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+    // Scroll-triggered animations – trigger when 5% of element is in view
+    var observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -30px 0px',
+      threshold: 0.05
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
+      observer.observe(el);
     });
-  }, observerOptions);
+  }
 
-  document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
-    observer.observe(el);
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
   // Header hide on scroll down, show on scroll up
   let lastScrollY = window.scrollY;
