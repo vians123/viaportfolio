@@ -905,6 +905,21 @@ a.contact-item {
     height: 18px;
     left: -2px;
   }
+
+  /* Projects & payment cards: always visible on phone (IntersectionObserver can be unreliable on mobile) */
+  .projects-grid.animate-on-scroll,
+  .projects-grid .project-card,
+  .payment-cards.animate-on-scroll,
+  .payment-cards .payment-card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* All scroll sections: ensure visible on mobile so nothing stays hidden */
+  .animate-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 480px) {
